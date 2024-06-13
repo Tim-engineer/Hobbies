@@ -22,6 +22,8 @@ class Hobbies {
 struct ContentView: View {
     @State private var hobbies = Hobbies()
     
+    @State private var showingAddHobby = false
+    
     var body: some View {
         NavigationStack {
             List {
@@ -32,10 +34,14 @@ struct ContentView: View {
             }
             .navigationTitle("Hobbies")
             .toolbar {
-                Button("Create Hobby", systemImage: "plus") {
-                    let hobby = HobbyItem(name: "Hobby Created...", time: 15)
-                    hobbies.items.append(hobby)
+                Button {
+                    showingAddHobby.toggle()
+                } label: {
+                    Image(systemName: "plus")
                 }
+            }
+            .sheet(isPresented: $showingAddHobby) {
+                AddView(hobbies: hobbies)
             }
         }
     }

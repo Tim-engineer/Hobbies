@@ -10,36 +10,35 @@ import SwiftUI
 struct AddView: View {
     @Environment(\.dismiss) var dismiss
     
-    @State private var selectedSymbolHeadline = SymbolHeadlineItem(symbolSF: "figure.walk", headline: "Move")
+    @State private var symbolSF = "figure.walk"
+    @State private var headline = "Move"
     @State private var caption = ""
     
     var hobbies: Hobbies
     
-    let symbolHeadlineItems = [
-            SymbolHeadlineItem(symbolSF: "paintpalette", headline: "Create"),
-            SymbolHeadlineItem(symbolSF: "figure.walk", headline: "Move"),
-            SymbolHeadlineItem(symbolSF: "graduationcap", headline: "Practice"),
-            SymbolHeadlineItem(symbolSF: "tv", headline: "Zone out")
-        ]
+    @State private var symbols = ["paintpalette", "figure.walk", "graduationcap", "tv"]
+    @State private var headlines = ["Create", "Move", "Practice", "Zone out"]
     
     
     var body: some View {
         NavigationStack {
             List {
+                
                 HStack {
-                    Picker("SF Symbols", selection: $selectedSymbolHeadline) {
-                                        ForEach(symbolHeadlineItems) { item in
-                                            HStack {
-                                                Image(systemName: item.symbolSF)
-                                                    .frame(width: 30, height: 30)
-                                                Text(item.headline)
-                                            }
-                                            .tag(item)
-                                        }
-                                    }
+                    Picker("Symbols", selection: $symbolSF) {
+                        ForEach(symbols, id: \.self) {
+                            Image(systemName: $0)
+                        }
+                    }
+                    Picker("Headlines", selection: $headline) {
+                        ForEach(headlines, id: \.self) {
+                            Text($0)
+                        }
+                    }
                 }
                 .frame(height: 120)
                 TextField("Describe it...", text: $caption)
+                    .autocorrectionDisabled()
             }
             .pickerStyle(.wheel)
             .navigationTitle("New Hobby")
@@ -47,7 +46,7 @@ struct AddView: View {
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Create") {
-                        let item = HobbyItem(symbolSF: selectedSymbolHeadline.symbolSF, headline: selectedSymbolHeadline.headline, caption: caption)
+                        let item = HobbyItem(symbolSF: symbolSF, headline: headline, caption: caption)
                         hobbies.items.append(item)
                         dismiss()
                     }
@@ -60,10 +59,4 @@ struct AddView: View {
 
 #Preview {
     AddView(hobbies: Hobbies())
-}
-
-struct SymbolHeadlineItem: Identifiable, Hashable {
-    let id = UUID()
-    let symbolSF: String
-    let headline: String
 }

@@ -8,33 +8,62 @@
 import SwiftUI
 
 struct AddView: View {
-    @State private var symbolSF = "figure.walk"
-    @State private var headline = ""
+    @Environment(\.dismiss) var dismiss
+    
+    @State private var selectedSymbolHeadline = SymbolHeadlineItem(symbolSF: "figure.walk", headline: "Move")
     @State private var caption = ""
     
     var hobbies: Hobbies
     
-    @State private var symbolsSF = ["paintpalette", "figure.walk", "graduationcap", "tv"]
+    let symbolHeadlineItems = [
+            SymbolHeadlineItem(symbolSF: "paintpalette", headline: "Create"),
+            SymbolHeadlineItem(symbolSF: "figure.walk", headline: "Move"),
+            SymbolHeadlineItem(symbolSF: "graduationcap", headline: "Practice"),
+            SymbolHeadlineItem(symbolSF: "tv", headline: "Zone out")
+        ]
+    
     
     var body: some View {
         NavigationStack {
             List {
-                TextField("What you want to do ?", text: $headline)
-                TextField("Describe it...", text: $caption)
-                Picker("SF", selection: $symbolSF) {
-                    ForEach(symbolsSF, id: \.self) {
-                        Image(systemName: $0)
-                    }
+                HStack {
+                    Picker("SF Symbols", selection: $selectedSymbolHeadline) {
+                                        ForEach(symbolHeadlineItems) { item in
+                                            HStack {
+                                                Image(systemName: item.symbolSF)
+                                                    .frame(width: 30, height: 30)
+                                                Text(item.headline)
+                                            }
+                                            .tag(item)
+                                        }
+                                    }
                 }
-                .pickerStyle(.wheel)
                 .frame(height: 120)
+                TextField("Describe it...", text: $caption)
             }
+            .pickerStyle(.wheel)
             .navigationTitle("New Hobby")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Create") {
+                        let item = HobbyItem(symbolSF: selectedSymbolHeadline.symbolSF, headline: selectedSymbolHeadline.headline, caption: caption)
+                        hobbies.items.append(item)
+                        dismiss()
+                    }
+                    .tint(.green)
+                }
+            }
         }
     }
 }
 
 #Preview {
     AddView(hobbies: Hobbies())
+}
+
+struct SymbolHeadlineItem: Identifiable, Hashable {
+    let id = UUID()
+    let symbolSF: String
+    let headline: String
 }

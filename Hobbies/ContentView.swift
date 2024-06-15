@@ -63,6 +63,9 @@ struct ContentView: View {
                 } label: {
                     Image(systemName: "plus")
                 }
+                .buttonBorderShape(.capsule)
+                .buttonStyle(.bordered)
+                .tint(.primary)
             }
             .sheet(isPresented: $showingAddHobby) {
                 AddView(hobbies: hobbies)
@@ -85,7 +88,7 @@ struct ContentView: View {
         case "Practice":
             gradientColors = [.cyan.opacity(0.6), .cyan.opacity(0.2)]
         case "Zone out":
-            gradientColors = [.blue.opacity(0.6), .blue.opacity(0.2)]
+            gradientColors = [.indigo.opacity(0.6), .indigo.opacity(0.2)]
         default:
             gradientColors = [.purple.opacity(0.6), .purple.opacity(0.2)]
         }
@@ -111,11 +114,17 @@ struct HobbyCell: View {
     
     @State private var amount = 0.0
     
+    @State private var isShowingSpecificAdd = false
+    
+    @State private var animationRunning = false
+    
     var body: some View {
         VStack {
             HStack {
                 Image(systemName: symbolSF)
+                    .symbolEffect(.pulse, options: .repeat(4), value: animationRunning)
                     .font(.system(size: 33))
+                    .frame(width: 50, height: 50)
                 VStack(alignment: .leading) {
                     Text(headline)
                         .font(.headline)
@@ -124,7 +133,8 @@ struct HobbyCell: View {
                 }
                 Spacer()
                 Button {
-                    
+                    isShowingSpecificAdd.toggle()
+                    animationRunning.toggle()
                 } label: {
                     HStack {
                         Image(systemName: "plus")
@@ -133,24 +143,27 @@ struct HobbyCell: View {
                 .buttonBorderShape(.capsule)
                 .tint(.secondary)
             }
-            Button {
-                
-            } label: {
-                HStack {
-                    Label("Bird Watch", systemImage: "binoculars")
-                    Spacer()
-                    Stepper("Amount", value: $amount)
-                        .labelsHidden()
-                        
-                }
-            }
-            .foregroundStyle(.primary)
-            .padding(.vertical)
             
-           
+//            Button {
+//                
+//            } label: {
+//                HStack {
+//                    Label("Bird Watch", systemImage: "binoculars")
+//                    Spacer()
+//                    Stepper("Amount", value: $amount)
+//                        .labelsHidden()
+//                        
+//                }
+//            }
+//            .foregroundStyle(.primary)
+//            .padding(.vertical)
         }
         .padding()
         .background(background, in: RoundedRectangle(cornerRadius: 20))
         .buttonStyle(.bordered)
+        .sheet(isPresented: $isShowingSpecificAdd) {
+            SpecificAddView()
+                .presentationDetents([.medium])
+        }
     }
 }

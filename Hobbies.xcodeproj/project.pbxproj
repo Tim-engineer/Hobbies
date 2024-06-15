@@ -12,6 +12,7 @@
 		D177D8D82C1B2A0C00DBF248 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D177D8D72C1B2A0C00DBF248 /* ContentView.swift */; };
 		D177D8DA2C1B2A0C00DBF248 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D177D8D92C1B2A0C00DBF248 /* Assets.xcassets */; };
 		D177D8DD2C1B2A0C00DBF248 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D177D8DC2C1B2A0C00DBF248 /* Preview Assets.xcassets */; };
+		D1ACEB3C2C1DA925007776E9 /* SpecificAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1ACEB3B2C1DA925007776E9 /* SpecificAddView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +22,7 @@
 		D177D8D72C1B2A0C00DBF248 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D177D8D92C1B2A0C00DBF248 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D177D8DC2C1B2A0C00DBF248 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		D1ACEB3B2C1DA925007776E9 /* SpecificAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecificAddView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 				D177D8D52C1B2A0C00DBF248 /* HobbiesApp.swift */,
 				D177D8D72C1B2A0C00DBF248 /* ContentView.swift */,
 				D16A04A22C1B6DE700EFCCD3 /* AddView.swift */,
+				D1ACEB3B2C1DA925007776E9 /* SpecificAddView.swift */,
 				D177D8D92C1B2A0C00DBF248 /* Assets.xcassets */,
 				D177D8DB2C1B2A0C00DBF248 /* Preview Content */,
 			);
@@ -142,6 +145,7 @@
 			files = (
 				D16A04A32C1B6DE700EFCCD3 /* AddView.swift in Sources */,
 				D177D8D82C1B2A0C00DBF248 /* ContentView.swift in Sources */,
+				D1ACEB3C2C1DA925007776E9 /* SpecificAddView.swift in Sources */,
 				D177D8D62C1B2A0C00DBF248 /* HobbiesApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

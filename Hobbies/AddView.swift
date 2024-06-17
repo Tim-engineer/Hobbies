@@ -16,48 +16,42 @@ struct AddView: View {
     var hobbies: Hobbies
     
     let symbolHeadlineItems = [
-            SymbolHeadlineItem(symbolSF: "paintpalette", headline: "Create"),
-            SymbolHeadlineItem(symbolSF: "figure.walk", headline: "Move"),
-            SymbolHeadlineItem(symbolSF: "graduationcap", headline: "Practice"),
-            SymbolHeadlineItem(symbolSF: "tv", headline: "Zone out")
+        SymbolHeadlineItem(symbolSF: "paintpalette", headline: "Create"),
+        SymbolHeadlineItem(symbolSF: "figure.walk", headline: "Move"),
+        SymbolHeadlineItem(symbolSF: "graduationcap", headline: "Practice"),
+        SymbolHeadlineItem(symbolSF: "tv", headline: "Zone out")
     ]
     
     
     var body: some View {
-        NavigationStack {
-            List {
-                HStack {
-                    Picker("SF Symbols", selection: $selectedSymbolHeadline) {
-                        ForEach(symbolHeadlineItems) { item in
-                            HStack {
-                                Image(systemName: item.symbolSF)
-                                    .frame(width: 30, height: 30)
-                                Text(item.headline)
-                            }
-                            .foregroundStyle(foregroundColor(for: item.headline).gradient)
-                            .fontWeight(.semibold)
-                        }
+        List {
+            Picker("SF Symbols", selection: $selectedSymbolHeadline) {
+                ForEach(symbolHeadlineItems) { item in
+                    HStack {
+                        Image(systemName: item.symbolSF)
+                            .frame(width: 30, height: 30)
+                        Text(item.headline)
                     }
+                    .foregroundStyle(foregroundColor(for: item.headline).gradient)
+                    .fontWeight(.semibold)
                 }
-                .listRowSeparator(.hidden)
-                .frame(height: 140)
-                TextField("Describe it...", text: $caption)
-                    .listRowSeparator(.hidden)
             }
-            .scrollDisabled(true)
-            .listStyle(.plain)
             .pickerStyle(.wheel)
-            .navigationTitle("New Hobby")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .confirmationAction) {
-                    Button("Create") {
-                        let item = HobbyItem(symbolSF: selectedSymbolHeadline.symbolSF, headline: selectedSymbolHeadline.headline, caption: caption)
-                        hobbies.items.append(item)
-                        dismiss()
-                    }
-                    .tint(.green)
+            
+            TextField("Describe it...", text: $caption)
+        }
+        .scrollDisabled(true)
+        .listStyle(.plain)
+        .navigationTitle("New Hobby")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .confirmationAction) {
+                Button("Create") {
+                    let item = HobbyItem(symbolSF: selectedSymbolHeadline.symbolSF, headline: selectedSymbolHeadline.headline, caption: caption)
+                    hobbies.items.append(item)
+                    dismiss()
                 }
+                .tint(.green)
             }
         }
     }
